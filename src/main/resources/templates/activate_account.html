@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+    <h1>Activate Account</h1>
+    <p>Here is your activation code:</p>
+    <p th:text="${activationCode}"></p>
+    <p>Click the link below to activate your account</p>
+    <a th:href="${confirmationUrl}" target="_blank">Activate Account</a>
+
+</body>
+</html>
