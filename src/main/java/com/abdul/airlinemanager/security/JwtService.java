@@ -55,7 +55,6 @@ public class JwtService {
                 .claim("authorities", authorities)
                 .signWith(getSignInKey())
                 .compact();
-    
     }
 
     public boolean isTokenValid(String token, UserDetails userDetails) {
@@ -94,6 +93,4 @@ public class JwtService {
                 .parseClaimsJws(token)
                 .getBody();
     }
-
-
 }

@@ -46,8 +46,10 @@ public class Player implements UserDetails, Principal {
     @Column(nullable = false)
     private Long balance;
 
-    private boolean accountLocked;
-    private boolean enabled;
+    // the two fields below are for email verification which will not be
+    // implemented yet
+//    private boolean accountLocked;
+//    private boolean enabled;
 
     @CreatedDate
     @Column(nullable = false, updatable = false)
@@ -64,20 +66,20 @@ public class Player implements UserDetails, Principal {
         return true;
     }
 
-    @Override
-    public boolean isAccountNonLocked() {
-        return !accountLocked;
-    }
+//    @Override
+//    public boolean isAccountNonLocked() {
+//        return !accountLocked;
+//    }
 
     @Override
     public boolean isCredentialsNonExpired() {
         return true;
     }
 
-    @Override
-    public boolean isEnabled() {
-        return enabled;
-    }
+//    @Override
+//    public boolean isEnabled() {
+//        return enabled;
+//    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

@@ -2,6 +2,7 @@ package com.abdul.airlinemanager;
 
 import com.abdul.airlinemanager.role.Role;
 import com.abdul.airlinemanager.role.RoleRepository;
+import jakarta.annotation.PostConstruct;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -26,5 +27,4 @@ public class AirlineManagerApplication {
 			}
 		};
 	}
-
 }

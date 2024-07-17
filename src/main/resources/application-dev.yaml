@@ -17,7 +17,7 @@ spring:
 application:
   security:
     jwt:
-      secret-key: eyJhbGciOiJIUzI1NiJ9.eyJSb2xlIjoiQWRtaW4iLCJJc3N1ZXIiOiJJc3N1ZXIiLCJVc2VybmFtZSI6IkphdmFJblVzZSIsImV4cCI6MTcyMDQ1OTQxMywiaWF0IjoxNzIwNDU5NDEzfQ.1J8cUFZ8_EqlgXJaRBTMW5RCLeUMQMQgtaXs2HiBfes
+      secret-key: 404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970
       expiration: 86400000 # 24 hours
   mailing:
     frontend:
