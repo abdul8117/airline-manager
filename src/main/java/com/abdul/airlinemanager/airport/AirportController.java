@@ -38,7 +38,7 @@ public class AirportController {
         return airportService.getAirportsByCityId(id);
     }
 
-    @PostConstruct
+//    @PostConstruct
     public void init() {
         String filePath = "datasets/GlobalAirportDatabase.txt";
 

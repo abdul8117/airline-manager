@@ -30,33 +30,37 @@ public class AircraftTypeController {
 
     @PostConstruct
     public void init() {
-        AircraftType a320 = new AircraftType(
-                AircraftManufacturers.AIRBUS,
-                AircraftModels.A320,
-                180,
-                5700
-        );
+        AircraftType a320 = AircraftType.builder()
+                .manufacturer(AircraftManufacturers.AIRBUS)
+                .model(AircraftModels.A320neo)
+                .capacity(180)
+                .range(5000)
+                .price(90000000L)
+                .build();
 
-        AircraftType a350 = new AircraftType(
-                AircraftManufacturers.AIRBUS,
-                AircraftModels.A350,
-                300,
-                15000
-        );
+        AircraftType a350 = AircraftType.builder()
+                .manufacturer(AircraftManufacturers.AIRBUS)
+                .model(AircraftModels.A350)
+                .capacity(300)
+                .range(15000)
+                .price(300000000L)
+                .build();
 
-        AircraftType b737 = new AircraftType(
-                AircraftManufacturers.BOEING,
-                AircraftModels.B737,
-                150,
-                5000
-        );
+        AircraftType b737 = AircraftType.builder()
+                .manufacturer(AircraftManufacturers.BOEING)
+                .model(AircraftModels.B737)
+                .capacity(150)
+                .range(4500)
+                .price(80000000L)
+                .build();
 
-        AircraftType b777 = new AircraftType(
-                AircraftManufacturers.BOEING,
-                AircraftModels.B777,
-                350,
-                15000
-        );
+        AircraftType b777 = AircraftType.builder()
+                .manufacturer(AircraftManufacturers.BOEING)
+                .model(AircraftModels.B777)
+                .capacity(350)
+                .range(14000)
+                .price(250000000L)
+                .build();
 
         aircraftTypeService.addAircraftType(a320);
         aircraftTypeService.addAircraftType(a350);

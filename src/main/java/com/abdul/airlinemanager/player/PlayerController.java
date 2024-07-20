@@ -1,5 +1,7 @@
 package com.abdul.airlinemanager.player;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -13,4 +15,9 @@ public class PlayerController {
         this.playerService = playerService;
     }
 
+    @PostMapping("/me")
+    @ResponseStatus(HttpStatus.OK)
+    public Player getPlayerAndAirlineInfo(@AuthenticationPrincipal Player player) {
+        return player;
+    }
 }
