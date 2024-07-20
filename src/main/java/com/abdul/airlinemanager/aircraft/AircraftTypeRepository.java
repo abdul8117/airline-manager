@@ -4,6 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface AircraftTypeRepository extends JpaRepository<AircraftType, Long> {
 
-    AircraftType findBy(Long aircraftTypeId);
+    AircraftType findByAircraftTypeId(Long aircraftTypeId);
 
 }

@@ -12,7 +12,6 @@ import java.util.List;
 public class AircraftTypeService {
 
     private final AircraftTypeRepository aircraftTypeRepository;
-    private final AircraftFleetService aircraftFleetService;
 
     public List<AircraftType> getAllAircraftTypes() {
         return aircraftTypeRepository.findAll();
@@ -22,8 +21,4 @@ public class AircraftTypeService {
         aircraftTypeRepository.save(aircraftType);
     }
 
-    public void buyAircraftType(AircraftType aircraftType) {
-        // add the aircraft to the player's fleet
-        aircraftFleetService.addAircraftToFleet(aircraftType);
-    }
 }

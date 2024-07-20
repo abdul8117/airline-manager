@@ -33,7 +33,7 @@ public class AircraftFleetService {
     public void buyAircraftType(Long aircraftTypeId, Player player) {
 
         // get info about the aircraft
-        AircraftType aircraftType = aircraftTypeRepository.findBy(aircraftTypeId);
+        AircraftType aircraftType = aircraftTypeRepository.findByAircraftTypeId(aircraftTypeId);
 
         // create a new aircraft fleet object
         AircraftFleet aircraftFleet = AircraftFleet.builder()

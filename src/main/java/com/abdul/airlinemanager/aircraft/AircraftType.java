@@ -13,7 +13,7 @@ public class AircraftType {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long aircraft_type_id;
+    private Long aircraftTypeId;
 
     @Enumerated(EnumType.STRING)
     private AircraftManufacturers manufacturer;
