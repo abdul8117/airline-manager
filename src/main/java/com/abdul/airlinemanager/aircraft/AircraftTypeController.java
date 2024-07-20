@@ -1,21 +1,23 @@
 package com.abdul.airlinemanager.aircraft;
 
+import com.abdul.airlinemanager.fleet.AircraftFleetService;
+import com.abdul.airlinemanager.player.Player;
 import jakarta.annotation.PostConstruct;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/api/aircraft-types")
 @CrossOrigin(origins = "http://localhost:5173")
 public class AircraftTypeController {
 
     private final AircraftTypeService aircraftTypeService;
-
-    public AircraftTypeController(AircraftTypeService aircraftTypeService) {
-        this.aircraftTypeService = aircraftTypeService;
-    }
+    private final AircraftFleetService aircraftFleetService;
 
     @GetMapping("")
     public List<AircraftType> getAllAircraftTypes() {
@@ -26,6 +28,15 @@ public class AircraftTypeController {
     @ResponseStatus(HttpStatus.CREATED)
     public void addAircraftType(@RequestBody AircraftType aircraftType) {
         aircraftTypeService.addAircraftType(aircraftType);
+    }
+
+    @PostMapping("/buy?type={aircraftTypeId}")
+    @ResponseStatus(HttpStatus.OK)
+    public void buyAircraftType(
+            @PathVariable Long aircraftTypeId,
+            @AuthenticationPrincipal Player player
+    ) {
+        aircraftFleetService.buyAircraftType(aircraftTypeId, player);
     }
 
     @PostConstruct

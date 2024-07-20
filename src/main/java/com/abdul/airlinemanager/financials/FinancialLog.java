@@ -26,10 +26,12 @@ public class FinancialLog {
     public Player player;
 
     @Enumerated(EnumType.STRING)
-    public TransactionType transactionType;
+    public TransactionType transactionType; // income or expense
+
+    @Enumerated(EnumType.STRING)
+    public TransactionCategory transactionCategory; // aircraft, route,
+    // flight expense, etc
 
     public double amount;
-
-    public String description;
 
 }

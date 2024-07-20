@@ -2,6 +2,7 @@ package com.abdul.airlinemanager.route;
 
 import com.abdul.airlinemanager.fleet.AircraftFleet;
 import jakarta.persistence.*;
+import lombok.*;
 
 /**
  * Represents a route-airplane relationship.
@@ -11,6 +12,11 @@ import jakarta.persistence.*;
  * composite key for this entity.
  */
 
+@Getter
+@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @IdClass(RouteAircraftId.class)
 public class RouteAircraft {
@@ -28,36 +34,4 @@ public class RouteAircraft {
     @Column(nullable = false)
     private Integer weeklyFrequency;
 
-    public RouteAircraft() {
-    }
-
-    public RouteAircraft(Route routeId, AircraftFleet aircraftId, Integer weeklyFrequency) {
-        this.routeId = routeId;
-        this.aircraftId = aircraftId;
-        this.weeklyFrequency = weeklyFrequency;
-    }
-
-    public Route getRouteId() {
-        return routeId;
-    }
-
-    public void setRouteId(Route routeId) {
-        this.routeId = routeId;
-    }
-
-    public AircraftFleet getAircraftId() {
-        return aircraftId;
-    }
-
-    public void setAircraftId(AircraftFleet aircraftId) {
-        this.aircraftId = aircraftId;
-    }
-
-    public Integer getWeeklyFrequency() {
-        return weeklyFrequency;
-    }
-
-    public void setWeeklyFrequency(Integer weeklyFrequency) {
-        this.weeklyFrequency = weeklyFrequency;
-    }
 }
