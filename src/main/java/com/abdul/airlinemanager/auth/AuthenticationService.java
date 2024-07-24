@@ -58,7 +58,7 @@ public class AuthenticationService {
                 .password(passwordEncoder.encode(registrationRequest.password()))
                 .airlineName(registrationRequest.airlineName())
                 .airport(airportRepository.findByAirportId(registrationRequest.hubAirportId()))
-                .balance(1000000000L)
+                .balance(1000000000D)
                 .roles(List.of(userRole))
 //                .accountLocked(false)
 //                .enabled(false)

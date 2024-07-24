@@ -19,7 +19,7 @@ public class FinancialLog {
 
     @ManyToOne
     @JoinColumn(name = "week_id", nullable = false)
-    public Week weekId;
+    public Week week;
 
     @ManyToOne
     @JoinColumn(name = "player_id", nullable = false)
@@ -32,6 +32,6 @@ public class FinancialLog {
     public TransactionCategory transactionCategory; // aircraft, route,
     // flight expense, etc
 
-    public double amount;
+    public Double amount;
 
 }

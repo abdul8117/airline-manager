@@ -25,6 +25,6 @@ public class AircraftType {
 
     private Integer range;
 
-    private Long price;
+    private Double price;
 
 }

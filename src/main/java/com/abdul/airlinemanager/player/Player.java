@@ -28,7 +28,7 @@ public class Player implements UserDetails, Principal {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long player_id;
+    private Long playerId;
 
     @Column(nullable = false)
     private String airlineName;
@@ -44,7 +44,7 @@ public class Player implements UserDetails, Principal {
     private Airport airport;
 
     @Column(nullable = false)
-    private Long balance;
+    private Double balance;
 
     // the two fields below are for email verification which will not be
     // implemented yet

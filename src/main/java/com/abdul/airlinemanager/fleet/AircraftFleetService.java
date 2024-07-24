@@ -6,6 +6,7 @@ import com.abdul.airlinemanager.financials.FinancialLogService;
 import com.abdul.airlinemanager.financials.TransactionCategory;
 import com.abdul.airlinemanager.financials.TransactionType;
 import com.abdul.airlinemanager.player.Player;
+import com.abdul.airlinemanager.player.PlayerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +19,7 @@ public class AircraftFleetService {
     private final AircraftFleetRepository aircraftFleetRepository;
     private final AircraftTypeRepository aircraftTypeRepository;
     private final FinancialLogService financialLogService;
+    private final PlayerService playerService;
 
     public List<AircraftFleet> getAllAircraftFleet() {
         return aircraftFleetRepository.findAll();
@@ -45,10 +47,19 @@ public class AircraftFleetService {
         aircraftFleetRepository.save(aircraftFleet);
 
         // update the player's balance
-        player.setBalance(player.getBalance() - aircraftType.getPrice());
+        playerService.decreaseBalance(player, aircraftType.getPrice());
 
         // log the transaction in the FinancialLog entity
         financialLogService.logTransaction(player, aircraftType.getPrice(),
                 TransactionType.EXPENSE, TransactionCategory.AIRCRAFT_PURCHASE);
+    }
+
+    /**
+     * Gets the player's fleet of aircraft.
+     * @param player the player whose fleet is being retrieved
+     * @return a list of PlayerFleetDto objects representing the player's fleet
+     */
+    public List<PlayerFleetDto> getPlayerFleet(Player player) {
+        return aircraftFleetRepository.findCountsByPlayer(player.getPlayerId());
     }
 }

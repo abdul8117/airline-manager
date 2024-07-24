@@ -1,6 +1,7 @@
 package com.abdul.airlinemanager.financials;
 
 import com.abdul.airlinemanager.player.Player;
+import com.abdul.airlinemanager.time.WeekService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -9,10 +10,11 @@ import org.springframework.stereotype.Service;
 public class FinancialLogService {
 
     private final FinancialLogRepository financialLogRepository;
+    private final WeekService weekService;
 
     public void logTransaction(
             Player player,
-            double amount,
+            Double amount,
             TransactionType transactionType,
             TransactionCategory transactionCategory
     ) {
@@ -21,6 +23,7 @@ public class FinancialLogService {
                 .amount(amount)
                 .transactionType(transactionType)
                 .transactionCategory(transactionCategory)
+                .week(weekService.getCurrentWeek())
                 .build();
 
         financialLogRepository.save(financialLog);
