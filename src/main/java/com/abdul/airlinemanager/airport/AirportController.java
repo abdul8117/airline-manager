@@ -5,6 +5,7 @@ import com.abdul.airlinemanager.city.CityService;
 import com.abdul.airlinemanager.country.Country;
 import com.abdul.airlinemanager.country.CountryService;
 import jakarta.annotation.PostConstruct;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.BufferedReader;
@@ -14,6 +15,7 @@ import java.util.List;
 import java.util.Random;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/api/airports")
 @CrossOrigin(origins = "http://localhost:5173")
 public class AirportController {
@@ -22,10 +24,9 @@ public class AirportController {
     private final CityService cityService;
     private final CountryService countryService;
 
-    public AirportController(AirportService airportService, CityService cityService, CountryService countryService) {
-        this.airportService = airportService;
-        this.cityService = cityService;
-        this.countryService = countryService;
+    @GetMapping("/id/{id}")
+    public Airport getAirportById(@PathVariable Long id) throws Exception {
+        return airportService.getAirportById(id);
     }
 
     @GetMapping("")
@@ -37,6 +38,7 @@ public class AirportController {
     public List<Airport> getAirportsByCityId(@PathVariable Integer id) {
         return airportService.getAirportsByCityId(id);
     }
+
 
     @PostConstruct
     public void init() {

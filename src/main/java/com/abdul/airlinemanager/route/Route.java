@@ -15,17 +15,17 @@ public class Route {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long route_id;
+    private Long routeId;
 
     @ManyToOne
-    @JoinColumn(name = "origin_airport_id", nullable = false)
-    private Airport originAirport;
+    @JoinColumn(name = "hub_airport_id", nullable = false)
+    private Airport hubAirport;
 
     @ManyToOne
     @JoinColumn(name = "destination_airport_id", nullable = false)
     private Airport destinationAirport;
 
-    private Integer distance;
+    private Integer distance; // one way distance in km
 
     private Integer totalFlightTime; // time in the air + turnaround time
 

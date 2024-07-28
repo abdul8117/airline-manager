@@ -1,18 +1,17 @@
 package com.abdul.airlinemanager.city;
 
 import com.abdul.airlinemanager.country.Country;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class CityService {
 
     private final CityRepository cityRepository;
-
-    public CityService(CityRepository cityRepository) {
-        this.cityRepository = cityRepository;
-    }
 
     public List<City> getAllCities() {
         return cityRepository.findAll();
