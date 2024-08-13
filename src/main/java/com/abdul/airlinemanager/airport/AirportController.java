@@ -68,13 +68,20 @@ public class AirportController {
 
                     City cityObj = cityService.findByNameAndCountry(city,
                             countryObj).orElseGet(
-                                    () -> cityService.addCity(new City(countryObj, city))
+                                    () -> cityService.addCity(City.builder()
+                                            .name(city).country(countryObj).build())
                             );
 
                     Integer gateCost = new Random().nextInt(299,5000) + 1;
 
-                    Airport airport = new Airport(airportName, iataCode,
-                            icaoCode, gateCost, cityObj, countryObj);
+                    Airport airport = Airport.builder()
+                            .name(airportName)
+                            .iataCode(iataCode)
+                            .icaoCode(icaoCode)
+                            .weeklyGateCost(gateCost)
+                            .city(cityObj)
+                            .country(countryObj)
+                            .build();
 
                     airportService.addAirport(airport);
                 }

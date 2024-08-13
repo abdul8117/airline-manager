@@ -3,10 +3,7 @@ package com.abdul.airlinemanager.fleet;
 import com.abdul.airlinemanager.player.Player;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,6 +20,11 @@ public class AircraftFleetController {
             @AuthenticationPrincipal Player player
     ) {
         return aircraftFleetService.getPlayerFleet(player);
+    }
+
+    @GetMapping("/hours-available")
+    public Integer getNumberOfHoursAvailable(@RequestParam Long aircraftFleetId) {
+        return aircraftFleetService.getNumberOfHoursAvailable(aircraftFleetId);
     }
 
 }

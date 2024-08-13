@@ -15,7 +15,7 @@ public class AircraftFleet {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long aircraft_fleet_id;
+    private Long aircraftFleetId;
 
     @ManyToOne
     @JoinColumn(name = "player_id", nullable = false)

@@ -7,6 +7,7 @@ import com.abdul.airlinemanager.financials.TransactionCategory;
 import com.abdul.airlinemanager.financials.TransactionType;
 import com.abdul.airlinemanager.player.Player;
 import com.abdul.airlinemanager.player.PlayerService;
+import com.abdul.airlinemanager.route.RouteService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +19,7 @@ public class AircraftFleetService {
 
     private final AircraftFleetRepository aircraftFleetRepository;
     private final AircraftTypeRepository aircraftTypeRepository;
+    private final RouteService routeService;
     private final FinancialLogService financialLogService;
     private final PlayerService playerService;
 
@@ -60,6 +62,16 @@ public class AircraftFleetService {
      * @return a list of PlayerFleetDto objects representing the player's fleet
      */
     public List<PlayerFleetDto> getPlayerFleet(Player player) {
-        return aircraftFleetRepository.findCountsByPlayer(player.getPlayerId());
+        return aircraftFleetRepository.findAllByPlayer(player);
+    }
+
+    /**
+     * Gets the number of hours available for a specific aircraft in the
+     * player's fleet.
+     * @param aircraftFleetId the id of the aircraft fleet
+     * @return the number of hours available for the aircraft fleet
+     */
+    public Integer getNumberOfHoursAvailable(Long aircraftFleetId) {
+        return routeService.calculateHoursAvailable(aircraftFleetId);
     }
 }

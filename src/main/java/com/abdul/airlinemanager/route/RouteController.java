@@ -30,4 +30,16 @@ public class RouteController {
         routeService.addRoute(destinationAirportId, player);
     }
 
+    @PostMapping("/schedule")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void addFlightsToRoute(
+            @RequestParam("routeId") Long routeId,
+            @RequestParam("aircraftFleetId") Long aircraftFleetId,
+            @RequestParam("weeklyFrequency") Integer weeklyFrequency,
+            @AuthenticationPrincipal Player player
+    ) {
+        routeService.scheduleFlights(routeId, aircraftFleetId,
+                weeklyFrequency, player);
+    }
+
 }
