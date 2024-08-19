@@ -6,16 +6,8 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-public interface AircraftFleetRepository extends JpaRepository<AircraftFleet, Long> {
-
-//    @Query("SELECT new com.abdul.airlinemanager.fleet.PlayerFleetDto(fleet" +
-//            ".aircraftType, COUNT(fleet.aircraftType)) FROM AircraftFleet " +
-//            "fleet WHERE fleet.player.playerId = ?1 GROUP BY fleet" +
-//            ".aircraftType")
-//    List<PlayerFleetDto> findCountsByPlayer(Long playerId);
-
-
-
+public interface AircraftFleetRepository extends JpaRepository<AircraftFleet,
+        Long> {
     AircraftFleet findByAircraftFleetId(Long aircraftFleetId);
 
     List<PlayerFleetDto> findAllByPlayer(Player player);

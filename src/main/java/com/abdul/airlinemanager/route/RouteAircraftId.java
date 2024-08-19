@@ -10,6 +10,6 @@ import java.io.Serializable;
 @AllArgsConstructor
 @EqualsAndHashCode
 public class RouteAircraftId implements Serializable {
-    private Long routeId;
+    private Long route;
     private Long aircraftId;
 }

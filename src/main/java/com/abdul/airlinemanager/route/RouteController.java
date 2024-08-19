@@ -17,6 +17,7 @@ public class RouteController {
     private final RouteService routeService;
 
     @GetMapping("")
+    @ResponseStatus(HttpStatus.OK)
     public List<Route> getRoutes() {
         return routeService.findAll();
     }
@@ -28,6 +29,12 @@ public class RouteController {
             @AuthenticationPrincipal Player player
     ) throws Exception {
         routeService.addRoute(destinationAirportId, player);
+    }
+
+    @GetMapping("/schedule")
+    @ResponseStatus(HttpStatus.OK)
+    public List<FlightSchedulesDto> getScheduleForPlayer(@AuthenticationPrincipal Player player) {
+        return routeService.getScheduleForPlayer(player);
     }
 
     @PostMapping("/schedule")

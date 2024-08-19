@@ -1,18 +1,20 @@
 package com.abdul.airlinemanager.route;
 
-import com.abdul.airlinemanager.aircraft.AircraftTypeRepository;
 import com.abdul.airlinemanager.airport.Airport;
 import com.abdul.airlinemanager.airport.AirportService;
 import com.abdul.airlinemanager.auth.AuthenticationService;
 import com.abdul.airlinemanager.fleet.AircraftFleet;
+import com.abdul.airlinemanager.fleet.AircraftFleetDto;
 import com.abdul.airlinemanager.fleet.AircraftFleetRepository;
 import com.abdul.airlinemanager.player.Player;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestClient;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -104,6 +106,7 @@ public class RouteService {
         }
     }
 
+    @Transactional
     public void scheduleFlights(
             Long routeId,
             Long aircraftFleetId,
@@ -112,6 +115,8 @@ public class RouteService {
     ) {
         // get the flight time of the route
         Route route = routeRepository.findByRouteId(routeId);
+        AircraftFleet aircraftInFleet =
+                aircraftFleetRepository.findByAircraftFleetId(aircraftFleetId);
         Integer flightTime = route.getTotalFlightTime();
 
         // calculate the total time available in a week for the aircraft
@@ -125,22 +130,22 @@ public class RouteService {
         if (areFlightsAlreadyScheduled(route, aircraftFleetId)) {
             // update the current route with the new frequency
             Integer currentFrequency =
-                    routeAircraftRepository.findByRouteIdAndAircraftId(route,
+                    routeAircraftRepository.findByRouteAndAircraftId(route,
                             aircraftFleetRepository.findByAircraftFleetId(aircraftFleetId))
                             .getFirst().getWeeklyFrequency();
 
             routeAircraftRepository.updateWeeklyFrequency(route,
-                    aircraftFleetId, currentFrequency + weeklyFrequency);
+                    aircraftInFleet, currentFrequency + weeklyFrequency);
         } else {
             // save the route to the aircraft
             RouteAircraft newRouteAircraft = RouteAircraft.builder()
-                    .routeId(route)
-                    .aircraftId(aircraftFleetRepository.findByAircraftFleetId(aircraftFleetId))
+                    .route(route)
+                    .aircraftId(aircraftInFleet)
+                    .player(player)
                     .weeklyFrequency(weeklyFrequency)
                     .build();
 
             routeAircraftRepository.save(newRouteAircraft);
-
         }
     }
 
@@ -148,7 +153,7 @@ public class RouteService {
         AircraftFleet aircraftFleet = aircraftFleetRepository.findByAircraftFleetId(aircraftFleetId);
 
         List<RouteAircraft> existingRoutes =
-                routeAircraftRepository.findByRouteIdAndAircraftId(route
+                routeAircraftRepository.findByRouteAndAircraftId(route
                         , aircraftFleet);
 
         return !existingRoutes.isEmpty();
@@ -157,7 +162,7 @@ public class RouteService {
     public Integer calculateHoursAvailable(Long aircraftFleetId) {
         List<AircraftRouteFlightTimeAndFrequencyDto> aircraftFlightSchedule =
                 routeAircraftRepository.findAircraftWeeklyScheduleAndFlightTimes(aircraftFleetId);
-        Integer totalTimeInAirPerWeek = 0;
+        int totalTimeInAirPerWeek = 0;
 
         for (int i = 0; i < aircraftFlightSchedule.size(); i++) {
             Integer routeFlightTime = aircraftFlightSchedule.get(i).flightTime();
@@ -168,4 +173,36 @@ public class RouteService {
 
         return 10080 - totalTimeInAirPerWeek;
     }
+
+    public List<FlightSchedulesDto> getScheduleForPlayer(Player player) {
+        List<RouteAircraft> routeAircraft =
+                routeAircraftRepository.findByPlayer(player);
+        List<FlightSchedulesDto> flightSchedules = new ArrayList<>();
+
+        for (RouteAircraft ra : routeAircraft) {
+            Route route = ra.getRoute();
+            List<AircraftFleetDto> aircraftOnCurrentRoute = new ArrayList<>();
+
+            aircraftOnCurrentRoute.add(new AircraftFleetDto(
+                    ra.getAircraftId().getAircraftFleetId(),
+                    ra.getAircraftId().getAircraftType()
+            ));
+
+            flightSchedules.add(new FlightSchedulesDto(
+                    new RouteDto(
+                            route.getRouteId(),
+                            route.getHubAirport(),
+                            route.getDestinationAirport(),
+                            route.getDistance(),
+                            route.getTotalFlightTime(),
+                            route.getPaxDemand()
+                    ),
+                    aircraftOnCurrentRoute,
+                    ra.getWeeklyFrequency()
+            ));
+        }
+
+        return flightSchedules;
+    }
+
 }

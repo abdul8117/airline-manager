@@ -1,6 +1,7 @@
 package com.abdul.airlinemanager.route;
 
 import com.abdul.airlinemanager.fleet.AircraftFleet;
+import com.abdul.airlinemanager.player.Player;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -24,12 +25,16 @@ public class RouteAircraft {
     @Id
     @OneToOne
     @JoinColumn(name = "route_id", nullable = false)
-    private Route routeId;
+    private Route route;
 
     @Id
     @OneToOne
     @JoinColumn(name = "aircraft_id", nullable = false)
     private AircraftFleet aircraftId;
+
+    @ManyToOne
+    @JoinColumn(name = "player_id", nullable = false)
+    private Player player;
 
     @Column(nullable = false)
     private Integer weeklyFrequency;
