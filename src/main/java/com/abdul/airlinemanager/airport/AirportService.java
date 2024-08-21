@@ -1,17 +1,15 @@
 package com.abdul.airlinemanager.airport;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class AirportService {
 
     private final AirportRepository airportRepository;
-
-    public AirportService(AirportRepository airportRepository) {
-        this.airportRepository = airportRepository;
-    }
 
     public List<Airport> getAllAirports() {
         return airportRepository.findAll();
@@ -21,15 +19,7 @@ public class AirportService {
         airportRepository.save(airport);
     }
 
-    public List<String> getAllCountries() {
-        return airportRepository.findDistinctByOrderByCountry();
-    }
-
-    public List<String> getAllCitiesInCountry(String country) {
-        return airportRepository.findByOrderByCity(country);
-    }
-
-    public List<Airport> getAirportsByCityId(Integer id) {
+    public List<Airport> getAirportsByCityId(Long id) {
         return airportRepository.findByCity_CityIdOrderByCity_Name(id);
     }
 

@@ -34,5 +34,4 @@ public class Airport {
     @ManyToOne
     @JoinColumn(name = "country_id", nullable = false)
     private Country country;
-
 }

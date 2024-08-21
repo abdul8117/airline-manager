@@ -12,7 +12,6 @@ import lombok.*;
 @AllArgsConstructor
 @Entity
 public class AircraftFleet {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long aircraftFleetId;
@@ -24,5 +23,4 @@ public class AircraftFleet {
     @ManyToOne
     @JoinColumn(name = "aircraft_type_id", nullable = false)
     private AircraftType aircraftType;
-
 }

@@ -10,8 +10,8 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class CityService {
-
     private final CityRepository cityRepository;
+
 
     public List<City> getAllCities() {
         return cityRepository.findAll();

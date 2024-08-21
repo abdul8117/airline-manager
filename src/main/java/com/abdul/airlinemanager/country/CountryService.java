@@ -1,17 +1,14 @@
 package com.abdul.airlinemanager.country;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class CountryService {
-
     private final CountryRepository countryRepository;
-
-    public CountryService(CountryRepository countryRepository) {
-        this.countryRepository = countryRepository;
-    }
 
     public List<Country> getAllCountries() {
         return countryRepository.findAll();

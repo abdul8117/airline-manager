@@ -11,9 +11,13 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @CrossOrigin(origins = "http://localhost:5173")
 public class AuthenticationController {
-
     private final AuthenticationService authenticationService;
 
+    /**
+     * Registers a new user.
+     * @param request
+     * @return A response object that contains the user's JWT.
+     */
     @PostMapping("/register")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public ResponseEntity<RegistrationResponse> register(
@@ -23,6 +27,11 @@ public class AuthenticationController {
         return ResponseEntity.ok(response);
     }
 
+    /**
+     * Logs in a user.
+     * @param request
+     * @return A response object that contains the user's JWT.
+     */
     @PostMapping("/login")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public ResponseEntity<LoginResponse> login(

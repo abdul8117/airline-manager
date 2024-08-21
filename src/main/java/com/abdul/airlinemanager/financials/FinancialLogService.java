@@ -12,6 +12,9 @@ public class FinancialLogService {
     private final FinancialLogRepository financialLogRepository;
     private final WeekService weekService;
 
+    /**
+     * Logs a transaction into the database.
+     */
     public void logTransaction(
             Player player,
             Double amount,
@@ -28,5 +31,4 @@ public class FinancialLogService {
 
         financialLogRepository.save(financialLog);
     }
-
 }

@@ -27,7 +27,6 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class AuthenticationService {
-
     private static final Logger log =
             LoggerFactory.getLogger(AuthenticationService.class);
 
@@ -37,11 +36,6 @@ public class AuthenticationService {
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
     private final JwtService jwtService;
-//    private final TokenRepository tokenRepository;
-//    private final EmailService emailService;
-
-//    @Value("${application.mailing.frontend.activation-url}")
-//    private String activationUrl;
 
     /**
      * Registers a new player and returns a RegistrationResponse record
@@ -60,8 +54,6 @@ public class AuthenticationService {
                 .airport(airportRepository.findByAirportId(registrationRequest.hubAirportId()))
                 .balance(1000000000D)
                 .roles(List.of(userRole))
-//                .accountLocked(false)
-//                .enabled(false)
                 .build();
 
         playerRepository.save(player);
@@ -74,51 +66,7 @@ public class AuthenticationService {
         var jwtToken = jwtService.generateToken(claims, player);
 
         return RegistrationResponse.builder().jwtToken(jwtToken).build();
-
-        // TODO at a later date
-        // sendValidationEmail(player);
     }
-
-//    private void sendValidationEmail(Player player) throws MessagingException {
-//
-//        var newToken = generateAndSaveActivationToken(player);
-//
-//        emailService.sendEmail(
-//                player.getEmail(),
-//                player.getAirlineName(),
-//                "Activate your account",
-//                EmailTemplateName.ACTIVATE_ACCOUNT,
-//                activationUrl,
-//                newToken
-//        );
-//
-//    }
-//
-//    private String generateAndSaveActivationToken(Player player) {
-//        String generatedToken = generateActivationToken(6);
-//
-//        var token = Token.builder()
-//                .token(generatedToken)
-//                .createdAt(LocalDateTime.now())
-//                .expiresAt(LocalDateTime.now().plusMinutes(15))
-//                .player(player)
-//                .build();
-//
-//        tokenRepository.save(token);
-//
-//        return generatedToken;
-//    }
-//
-//    private String generateActivationToken(int length) {
-//        String characters = "0123456789";
-//        StringBuilder token = new StringBuilder(length);
-//        SecureRandom random = new SecureRandom();
-//
-//        for (int i = 0; i < length; i++)
-//            token.append(characters.charAt(random.nextInt(characters.length())));
-//
-//        return token.toString();
-//    }
 
     /**
      * Authenticates the player and generates a JWT token
@@ -126,6 +74,7 @@ public class AuthenticationService {
      * @return a record containing the user's JWT token
      */
     public LoginResponse login(LoginRequest request) {
+        // authenticate the player
         var auth = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.email(),
@@ -135,6 +84,7 @@ public class AuthenticationService {
 
         log.info("Player {} logged in", request.email());
 
+        // generate a JWT token for the player
         var claims = new HashMap<String, Object>();
         var player = (Player) auth.getPrincipal();
         claims.put("email", player.getEmail());

@@ -18,24 +18,37 @@ import java.util.List;
 @RequestMapping("/api/aircraft-types")
 @CrossOrigin(origins = "http://localhost:5173")
 public class AircraftTypeController {
-
     private static final Logger log =
             LoggerFactory.getLogger(AuthenticationService.class);
 
     private final AircraftTypeService aircraftTypeService;
     private final AircraftFleetService aircraftFleetService;
 
+    /**
+     * Returns all aircraft types.
+     */
     @GetMapping("")
     public List<AircraftType> getAllAircraftTypes() {
         return aircraftTypeService.getAllAircraftTypes();
     }
 
+    /**
+     * Adds a new aircraft type to the database.
+     * Note: Does not add it to a player's fleet but just the table
+     * containing the different aircraft a player can buy.
+     * @param aircraftType The aircraft to add of type AircraftType.
+     */
     @PostMapping("")
     @ResponseStatus(HttpStatus.CREATED)
     public void addAircraftType(@RequestBody AircraftType aircraftType) {
         aircraftTypeService.addAircraftType(aircraftType);
     }
 
+    /**
+     * Buys an aircraft type for a player.
+     * @param aircraftTypeId The id corresponding to the aircraft type.
+     * @param player
+     */
     @PostMapping("/buy")
     public void buyAircraftType(
             @RequestParam Long aircraftTypeId,
@@ -45,6 +58,9 @@ public class AircraftTypeController {
         aircraftFleetService.buyAircraftType(aircraftTypeId, player);
     }
 
+    /**
+     * Initialises the aircraft types in the database.
+     */
     @PostConstruct
     public void init() {
         AircraftType a320 = AircraftType.builder()

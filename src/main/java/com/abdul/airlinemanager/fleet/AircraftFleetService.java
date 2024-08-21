@@ -23,10 +23,6 @@ public class AircraftFleetService {
     private final FinancialLogService financialLogService;
     private final PlayerService playerService;
 
-    public List<AircraftFleet> getAllAircraftFleet() {
-        return aircraftFleetRepository.findAll();
-    }
-
     /**
      * Buy an aircraft type, add it to the player's fleet, update the
      * player's balance, and log the transaction.
@@ -61,7 +57,7 @@ public class AircraftFleetService {
      * @param player the player whose fleet is being retrieved
      * @return a list of PlayerFleetDto objects representing the player's fleet
      */
-    public List<PlayerFleetDto> getPlayerFleet(Player player) {
+    public List<AircraftFleetDto> getPlayerFleet(Player player) {
         return aircraftFleetRepository.findAllByPlayer(player);
     }
 

@@ -20,7 +20,6 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @RequiredArgsConstructor
 @EnableMethodSecurity(securedEnabled = true)
 public class SecurityConfig {
-
     private final AuthenticationProvider authenticationProvider;
     private final JwtFilter jwtAuthFilter;
 

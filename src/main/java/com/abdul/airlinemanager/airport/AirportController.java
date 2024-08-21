@@ -24,22 +24,39 @@ public class AirportController {
     private final CityService cityService;
     private final CountryService countryService;
 
+    /**
+     * Returns an airport of a specific id.
+     * @param id
+     * @return Airport object
+     * @throws Exception if airport is not found
+     */
     @GetMapping("/id/{id}")
     public Airport getAirportById(@PathVariable Long id) throws Exception {
         return airportService.getAirportById(id);
     }
 
+    /**
+     * Returns all airports in the database.
+     * @return List of Airport objects
+     */
     @GetMapping("")
     public List<Airport> getAllAirports() {
         return airportService.getAllAirports();
     }
 
+    /**
+     * Returns all airports in a specific city.
+     * @param id id of a city
+     * @return List of Airport objects
+     */
     @GetMapping("/cities/{id}")
-    public List<Airport> getAirportsByCityId(@PathVariable Integer id) {
+    public List<Airport> getAirportsByCityId(@PathVariable Long id) {
         return airportService.getAirportsByCityId(id);
     }
 
-
+    /**
+     * Initialises the database with airports from a file.
+     */
     @PostConstruct
     public void init() {
         String filePath = "datasets/GlobalAirportDatabase.txt";

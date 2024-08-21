@@ -4,6 +4,10 @@ import lombok.*;
 
 import java.io.Serializable;
 
+/**
+ * This class allows the creation of a composite key for the RouteAircraft entity.
+ */
+
 @Getter
 @Setter
 @NoArgsConstructor

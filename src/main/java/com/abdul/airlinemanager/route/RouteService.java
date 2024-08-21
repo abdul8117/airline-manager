@@ -20,7 +20,6 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class RouteService {
-
     private static final Logger log =
             LoggerFactory.getLogger(AuthenticationService.class);
 
@@ -31,9 +30,6 @@ public class RouteService {
     private final RestClient restClient = RestClient.builder()
             .baseUrl("https://airportgap.com/api").build();
 
-    public List<Route> findAll() {
-        return routeRepository.findAll();
-    }
 
     /**
      * Adds a new route to the database.
@@ -149,6 +145,12 @@ public class RouteService {
         }
     }
 
+    /**
+     * Check if there are already flights scheduled for the given route and aircraft.
+     * @param route The route to check.
+     * @param aircraftFleetId The id of the aircraft in the player's fleet.
+     * @return True if flights are already scheduled, otherwise, false.
+     */
     private boolean areFlightsAlreadyScheduled(Route route, Long aircraftFleetId) {
         AircraftFleet aircraftFleet = aircraftFleetRepository.findByAircraftFleetId(aircraftFleetId);
 
@@ -159,6 +161,12 @@ public class RouteService {
         return !existingRoutes.isEmpty();
     }
 
+    /**
+     * Calculate the total hours available in a week for an aircraft in a week.
+     * @param aircraftFleetId The id of the aircraft in the player's fleet.
+     * @return Integer representing the total hours available in a week for
+     * the aircraft.
+     */
     public Integer calculateHoursAvailable(Long aircraftFleetId) {
         List<AircraftRouteFlightTimeAndFrequencyDto> aircraftFlightSchedule =
                 routeAircraftRepository.findAircraftWeeklyScheduleAndFlightTimes(aircraftFleetId);
@@ -171,9 +179,15 @@ public class RouteService {
             totalTimeInAirPerWeek += routeFlightTime * routeFrequency;
         }
 
+        // there are 10080 hours in a week
         return 10080 - totalTimeInAirPerWeek;
     }
 
+    /**
+     * Get all the flight schedules for a player's airline.
+     * @param player
+     * @return List of FlightSchedulesDto objects.
+     */
     public List<FlightSchedulesDto> getScheduleForPlayer(Player player) {
         List<RouteAircraft> routeAircraft =
                 routeAircraftRepository.findByPlayer(player);
@@ -204,5 +218,4 @@ public class RouteService {
 
         return flightSchedules;
     }
-
 }

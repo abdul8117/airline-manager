@@ -10,10 +10,6 @@ public class PlayerService {
 
     private final PlayerRepository playerRepository;
 
-    public boolean existsByEmail(String email) {
-        return playerRepository.existsByEmail(email);
-    }
-
     @Transactional
     public void decreaseBalance(Player player, double amount) {
         playerRepository.decreaseBalance(player.getPlayerId(), amount);
@@ -23,5 +19,4 @@ public class PlayerService {
     public void increaseBalance(Player player, double amount) {
         playerRepository.increaseBalance(player.getPlayerId(), amount);
     }
-
 }

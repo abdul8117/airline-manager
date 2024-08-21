@@ -23,7 +23,7 @@ public class AircraftType {
 
     private Integer capacity;
 
-    private Integer range;
+    private Integer range; // in kilometres
 
     private Double price;
 

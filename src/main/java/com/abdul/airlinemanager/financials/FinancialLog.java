@@ -12,7 +12,6 @@ import lombok.*;
 @AllArgsConstructor
 @Entity
 public class FinancialLog {
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     public Long logId;
@@ -33,5 +32,4 @@ public class FinancialLog {
     // flight expense, etc
 
     public Double amount;
-
 }
