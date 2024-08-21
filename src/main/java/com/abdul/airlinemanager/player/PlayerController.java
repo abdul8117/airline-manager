@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin(origins = "http://localhost:5173")
 @RequestMapping("/api/player")
 public class PlayerController {
-    private final PlayerService playerService;
-
     /**
      * Returns info about the player and their airline.
      * @param player

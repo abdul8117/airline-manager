@@ -5,22 +5,16 @@ import com.abdul.airlinemanager.airport.AirportRepository;
 //import com.abdul.airlinemanager.email.EmailTemplateName;
 import com.abdul.airlinemanager.player.Player;
 import com.abdul.airlinemanager.player.PlayerRepository;
-//import com.abdul.airlinemanager.player.Token;
-//import com.abdul.airlinemanager.player.TokenRepository;
 import com.abdul.airlinemanager.role.RoleRepository;
 import com.abdul.airlinemanager.security.JwtService;
-import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-//import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-//import java.security.SecureRandom;
-//import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 
